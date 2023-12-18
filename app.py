@@ -2,7 +2,6 @@ import streamlit as st
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
-import imutils
 
 
 
@@ -30,7 +29,10 @@ def convert_image_to_grayscale(image):
     return grayscale_image
 
 def rotate_image(image):
-    rotated_image = imutils.rotate(image, 90)
+    (h, w) = image.shape[:2]
+    (cX, cY) = (w // 2, h // 2)
+    m = cv2.getRotationMatrix2D((cX, cY), 90, 1.0)
+    rotated_image = cv2.warpAffine(image, m, (w, h))
     return rotated_image
 
 
