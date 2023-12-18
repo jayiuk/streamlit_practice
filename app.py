@@ -33,6 +33,7 @@ def rotate_image(image):
     (cX, cY) = (w // 2, h // 2)
     m = cv2.getRotationMatrix2D((cX, cY), 90, 1.0)
     rotated_image = cv2.warpAffine(image, m, (w, h))
+    rotated_image = cv2.cvtColor(rotated_image, cv2.COLOR_RGB2BGR)
     return rotated_image
 
 
