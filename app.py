@@ -71,7 +71,7 @@ if uploaded_file is not None:
     st.image(uploaded_file, caption='Original Image', use_column_width=True)
 
     option = st.selectbox(
-        '�먰븯�� 蹂��섏쓣 �좏깮�섏꽭��:',
+        'option:',
         ('None', 'Histogram Equalization', 'gray', 'rotate')
     )
 
