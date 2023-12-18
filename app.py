@@ -2,6 +2,7 @@ import streamlit as st
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
+import imutils
 
 
 
@@ -27,6 +28,10 @@ def process_image(image):
 def convert_image_to_grayscale(image):
     grayscale_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     return grayscale_image
+
+def rotate_image(image):
+    rotated_image = imutils.rotate(image, 90)
+    return rotated_image
 
 
 
@@ -67,7 +72,7 @@ if uploaded_file is not None:
 
     option = st.selectbox(
         '�먰븯�� 蹂��섏쓣 �좏깮�섏꽭��:',
-        ('None', 'Histogram Equalization', '�묐갚蹂���')
+        ('None', 'Histogram Equalization', 'gray', 'rotate')
     )
 
     
@@ -76,6 +81,10 @@ if uploaded_file is not None:
         st.image(processed_image, caption = 'Histogram Equalized Image', use_column_width=True)
         st.pyplot(plot_histograms(image, processed_image))
 
-    elif option == '�묐갚蹂���':
+    elif option == 'gray':
         grayscale_image = convert_image_to_grayscale(image)
         st.image(grayscale_image, caption='Grayscale Image', use_column_width=True)
+    
+    elif option == 'rotate':
+        rotated_image = rotate_image(image)
+        st.image(rotated_image, caption = 'rotated image', use_column_width = True)
