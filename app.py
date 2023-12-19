@@ -37,6 +37,15 @@ def rotate_image(image):
     return rotated_image
 
 
+def rotate_image_90(image):
+    (h, w) = image.shape[:2]
+    (cX, cY) = (w // 2, h // 2)
+    m = cv2.getRotationMatrix2D((cX, cY), 270, 1.0)
+    rotated_r_image = cv2.warpAffine(image, m, (w, h))
+    rotated_r_image = cv2.cvtColor(rotated_r_image, cv2.COLOR_RGB2BGR)
+    return rotated_r_image
+
+
 
 
 def plot_histograms(original_image, processed_image):
@@ -75,7 +84,7 @@ if uploaded_file is not None:
 
     option = st.selectbox(
         'option:',
-        ('None', 'Histogram Equalization', 'gray', 'rotate')
+        ('None', 'Histogram Equalization', 'gray', 'rotate', 'rotate_r')
     )
 
     
@@ -91,3 +100,7 @@ if uploaded_file is not None:
     elif option == 'rotate':
         rotated_image = rotate_image(image)
         st.image(rotated_image, caption = 'rotated image', use_column_width = True)
+
+    elif option == 'rotate_r':
+        rotated_r_image = rotate_image_90(image)
+        st.image(rotated_r_image, caption = 'rotated image', use_column_width = True)
